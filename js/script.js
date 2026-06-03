@@ -8,9 +8,6 @@ const elFilmForm = document.querySelector(".film-form");
 const elFilmsList = document.querySelector(".films-list");
 
 const allFilm = films;
-console.log(films);
-
-elResult.textContent = allFilm.length;
 
 const generateGenres = function (filmsArr) {
   let uniqueGenres = [];
@@ -26,8 +23,6 @@ const generateGenres = function (filmsArr) {
 generateGenres(allFilm);
 
 const renderCategories = function (categoryArr, htmlElement) {
-  categoryArr.unshift("All");
-
   categoryArr.forEach((category) => {
     const newOption = document.createElement("option");
 
@@ -49,13 +44,16 @@ elFilmForm.addEventListener("submit", (evt) => {
   let filteredFilms = [];
 
   for (let film of films) {
-    if (film.genres.includes(categoryValue)) filteredFilms.push(film);
+    if (categoryValue === "All" || film.genres.includes(categoryValue))
+      filteredFilms.push(film);
   }
 
   renderMovies(filteredFilms, elFilmsList);
 });
 
 const renderMovies = function (filmsArr, htmlElement) {
+  elResult.textContent = filmsArr.length;
+
   filmsArr.forEach((film) => {
     const newFilmItem = document.createElement("li");
     const newFilmItemWrapper = document.createElement("div");
