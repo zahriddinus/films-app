@@ -93,7 +93,11 @@
                 <option value="3">Three</option>
               </select>
 
-              <button type="submit" class="btn btn-primary w-100">
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                data-bs-dismiss="offcanvas"
+              >
                 Search
               </button>
             </form>
@@ -101,12 +105,47 @@
             <div class="sitebar__bottom p-3">
               <h2 class="m-0 mb-3 fs-2">Bookmarked movies</h2>
 
-              <!-- <ul class=""></ul> -->
+              <ul
+                class="bookmarked-list m-0 p-0 list-unstyled overflow-hidden rounded-3 border border-dark-subtle"
+              >
+                <li class="bookmarked-items p-3">
+                  <h4 class="m-0 fs-5 text-danger">Nothing here yet!</h4>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
         <ul class="films-list list-unstyled row g-3"></ul>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1
+                  class="film-info-title modal-title fs-5"
+                  id="exampleModalLabel"
+                >
+                  Modal title
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="film-info-desc modal-body">...</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
