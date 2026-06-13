@@ -12,7 +12,8 @@ const elFilmInfoTitle = document.querySelector(".film-info-title");
 const elFilmInfoDesc = document.querySelector(".film-info-desc");
 
 const allFilm = films;
-const bookmarkedFilms = [];
+const localData = JSON.parse(window.localStorage.getItem("bookmarkedItems"));
+const bookmarkedFilms = localData || [];
 
 const generateGenres = function (filmsArr) {
   let uniqueGenres = [];
@@ -153,10 +154,15 @@ elFilmsList.addEventListener("click", (evt) => {
     const filmBookmarkBtnId = evt.target.dataset.itemBookmarkBtnId;
     const selectedFilm = allFilm.find((film) => film.id === filmBookmarkBtnId);
 
-    if (!bookmarkedFilms.includes(selectedFilm))
+    if (!bookmarkedFilms.includes(selectedFilm)) {
       bookmarkedFilms.push(selectedFilm);
-
+    }
     elBookmarkedList.innerHTML = null;
+
+    window.localStorage.setItem(
+      "bookmarkedItems",
+      JSON.stringify(bookmarkedFilms),
+    );
   }
 
   renderBookmarked(bookmarkedFilms, elBookmarkedList);
@@ -214,6 +220,7 @@ const renderBookmarked = function (bookmarkedArr, htmlElement) {
     newItem.appendChild(newItemTitle);
   }
 };
+renderBookmarked(bookmarkedFilms, elBookmarkedList);
 
 elBookmarkedList.addEventListener("click", (evt) => {
   if (evt.target.matches(".item-delete-btn")) {
@@ -223,7 +230,18 @@ elBookmarkedList.addEventListener("click", (evt) => {
     );
     bookmarkedFilms.splice(foundedFilmDelete, 1);
 
+    console.log(bookmarkedFilms.length);
+
     elBookmarkedList.innerHTML = null;
+    window.localStorage.setItem(
+      "bookmarkedItems",
+      JSON.stringify(bookmarkedFilms),
+    );
+
+    if (bookmarkedFilms.length === 0) {
+      window.localStorage.removeItem("bookmarkedItems");
+    }
+
     renderBookmarked(bookmarkedFilms, elBookmarkedList);
   }
 
