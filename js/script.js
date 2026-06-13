@@ -230,8 +230,6 @@ elBookmarkedList.addEventListener("click", (evt) => {
     );
     bookmarkedFilms.splice(foundedFilmDelete, 1);
 
-    console.log(bookmarkedFilms.length);
-
     elBookmarkedList.innerHTML = null;
     window.localStorage.setItem(
       "bookmarkedItems",
